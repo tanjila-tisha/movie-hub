@@ -3,9 +3,14 @@ body{
     padding: 0px;
     background-color: #81a1a1;
 }
+a{
+    text-decoration: none;  
+}
 .heading{
-    color: red;
     margin: 0px;
+}
+.heading a{
+    color:#FFCE2B;
 }
 .header{
     background-color: rgba(0, 0, 0, 0.6);
@@ -26,12 +31,11 @@ body{
 }
 .pointer{
     cursor: pointer; 
+    text-decoration: underline;
 }
-a{
-    text-decoration: none;  
-}
-.link-color{
-    color:red;
+.page-number{
+    background-color: rgba(0, 0, 0, .3);
+    border-radius: 5px;
 }
 
 .list-container{
@@ -75,3 +79,4 @@ a.list-child-container:hover {
 .title{
     font-size: 40px;
 }
+

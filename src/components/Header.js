@@ -7,7 +7,7 @@ const Header = (props) => {
     return (
         <div className="header">
             <h1 className="heading">
-                <Link to={"/"} className="link-color">{props.heading}</Link>
+                <Link to={"/"} >{props.heading}</Link>
             </h1>
         </div>
     );

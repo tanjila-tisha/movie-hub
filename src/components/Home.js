@@ -36,7 +36,7 @@ class Home extends Component {
         <Header heading="ChrisMovie" />
         <div className="paging"> 
           {this.state.pageNo > 1 && <span onClick={() => this.goToPage(this.state.pageNo - 1)} className="pointer">Previous</span>}
-          <span>{this.state.pageNo}</span>
+          <span className="page-number">{this.state.pageNo}</span>
           {this.state.pageNo < maxPage && <span onClick={() => this.goToPage(this.state.pageNo + 1)} className="pointer">Next</span>}
         </div>
         <div className="list-container">
