@@ -14,7 +14,7 @@ const Detail = (props) => {
       <div className="detail-item">
         <div className="detail-img"><img src={video.Poster} alt = {video.Title} /></div>
         <div className="detail-description">
-          <div><strong>Title :</strong> {video.Title}</div>
+          <div className="title"> {video.Title}</div>
           <div><strong>Year :</strong> {video.Year}</div>
           <div><strong>Type :</strong> {video.Type}</div>
         </div>
