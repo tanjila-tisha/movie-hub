@@ -1,30 +1,56 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from "react-redux";
 import Header from './Header';
+import { getVideoDetail, getVideoDetailErase } from '../modules/action';
 
-const Detail = (props) => {
-  const { videos } = props;
-  if (!videos.length) {
-    return null;
+
+class Detail extends Component {
+
+  componentDidMount() {
+    const { getVideoDetail } = this.props;
+    getVideoDetail(this.props.match.params.imdbID);
   }
-  const video = videos.find(element => element.imdbID === props.match.params.imdbID);
-  return (
-    <div>
-      <Header heading="ChrisMovie" />
-      <div className="detail-item">
-        <div className="detail-img"><img src={video.Poster} alt = {video.Title} /></div>
-        <div className="detail-description">
-          <div className="title"> {video.Title}</div>
-          <div><strong>Year :</strong> {video.Year}</div>
-          <div><strong>Type :</strong> {video.Type}</div>
+  componentWillUnmount(){
+    const { getVideoDetailErase } = this.props;
+    getVideoDetailErase();
+  }
+
+  render() {
+    const { video } = this.props;
+    
+    return (
+      <div>
+        <Header heading="ChrisMovie" />
+        <div className="detail-item">
+        { Object.keys(video).length === 0 ? <div className="title"> Loading.....</div> :
+          (<div className="detail-item">
+            <div className="detail-img"><img src={video.Poster} alt={video.Title} /></div>
+            <div className="detail-description">
+            <div className="title"> {video.Title}</div>
+            <div><strong>Release date :</strong> {video.Released}</div>
+            <div><strong>Genre :</strong> {video.Genre}</div>
+            <div><strong>Director :</strong> {video.Director}</div>
+            <div><strong>Actors :</strong> {video.Actors}</div>
+            <div><strong>Language :</strong> {video.Language}</div>
+            </div> 
+          </div>)}
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 };
 
 const mapStateToProps = state => {
-  return { videos: state.videos };
+  return { video: state.videoDetail };
 };
 
-export default connect(mapStateToProps)(Detail);
+const mapDispatchToProps = dispatch => ({
+  getVideoDetail: (imdbID) => {
+    dispatch(getVideoDetail(imdbID));
+  },
+  getVideoDetailErase: () => {
+    dispatch(getVideoDetailErase());
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Detail);
