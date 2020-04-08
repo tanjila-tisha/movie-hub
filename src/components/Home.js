@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import ListItem from './ListItem';
 import Header from './Header';
-import getVideosAction from '../modules/action';
+import SearchForm from './SearchForm';
+import Pager from './Pager';
+import { getVideosAction , getSearchItemAction } from '../modules/action';
 
 
 class Home extends Component {
@@ -11,16 +13,22 @@ class Home extends Component {
     this.state = { pageNo: 1 };
   }
 
-  componentDidMount() {
-    const { getVideos } = this.props;
-    const { pageNo } = this.state;
-    getVideos(pageNo);
+  goToPage = (pageNo) => {
+    const { getVideos, searchItem } = this.props;
+    getVideos(searchItem, pageNo);
+    this.setState({ pageNo: pageNo });
   }
 
-  goToPage = (pageNo) => {
-    const { getVideos } = this.props;
-    getVideos(pageNo);
-    this.setState({ pageNo: pageNo });
+  inputHandler = (event) => {
+    
+    const { getSearchItem } = this.props;
+    getSearchItem(event.target.value);
+  }
+
+  searchHandler = () => {
+    const { getVideos, searchItem } = this.props;
+    getVideos(searchItem, 1);
+    this.setState({ pageNo: 1 });
   }
 
   render() {
@@ -34,11 +42,16 @@ class Home extends Component {
     return (
       <div>
         <Header heading="ChrisMovie" />
-        <div className="paging"> 
-          {this.state.pageNo > 1 && <span onClick={() => this.goToPage(this.state.pageNo - 1)} className="pointer">Previous</span>}
-          <span className="page-number">{this.state.pageNo}</span>
-          {this.state.pageNo < maxPage && <span onClick={() => this.goToPage(this.state.pageNo + 1)} className="pointer">Next</span>}
-        </div>
+        <SearchForm 
+          inputHandler={this.inputHandler} 
+          searchHandler={this.searchHandler} 
+          inputValue={this.props.searchItem}
+        />
+        <Pager 
+          maxPageNo={maxPage} 
+          pageNo={this.state.pageNo}
+          goToPage={this.goToPage} 
+          />
         <div className="list-container">
           {videoList}
         </div>
@@ -48,12 +61,15 @@ class Home extends Component {
 }
 
 const mapStateToProps = state => {
-  return { videos: state.videos, totalResults: state.totalResults };
+  return { videos: state.videos, totalResults: state.totalResults, searchItem: state.searchItem };
 };
 
 const mapDispatchToProps = dispatch => ({
-  getVideos: (pageNo) => {
-    dispatch(getVideosAction(pageNo));
+  getVideos: (searchItem, pageNo) => {
+    dispatch(getVideosAction(searchItem, pageNo));
+  },
+  getSearchItem: (searchItem) =>{
+    dispatch(getSearchItemAction(searchItem)); 
   },
 });
 
