@@ -8,7 +8,7 @@ npm start
 Runs the app in the development mode.
 Open http://localhost:3000 to view it in the browser.
 
-##Features:
+## Features:
 
 It's a  two pages react application that contains
   1. Lists all of movies by showing their names and poster thumbnails. 
