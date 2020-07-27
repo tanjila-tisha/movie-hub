@@ -15,5 +15,5 @@ It's a  two pages react application that contains
   2. A dynamic page that shows more info about the movie with a bigger poster. 
   3. Dynamic movie data fetched from an API 'omdbapi' using 'axios'.
   4. Used 'Redux' for state management.
-  5.'React Router' for navigation.
+  5. 'React Router' for navigation.
   6. Responsive design.
